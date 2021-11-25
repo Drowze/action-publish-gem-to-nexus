@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eo pipefail
 
 URL=$1
 USERNAME=$2
@@ -11,8 +12,8 @@ PASSWORD=$3
 echo "Building gem"
 gem build *.gemspec
 
-echo "Pushing gem"
-gem nexus --url ${URL} --credential ${USERNAME}:${PASSWORD} *.gem
-
 GEM_VERSION=$(ruby -e "require 'rubygems'; gemspec = Dir.entries('.').find { |file| file =~ /.*\.gemspec/ }; spec = Gem::Specification::load(gemspec); puts spec.version")
 echo "::set-output name=full-version::${GEM_VERSION}"
+
+echo "Pushing gem"
+gem nexus --url ${URL} --credential ${USERNAME}:${PASSWORD} *.gem
