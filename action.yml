@@ -1,0 +1,23 @@
+name: Publish gem to Nexus
+description: Build and publish a ruby gem to a Sonatype's Nexus Repository
+author: Drowze
+branding:
+  icon: upload-cloud
+  color: red
+inputs:
+  url:
+    description: Nexus repository URL
+    required: true
+  username:
+    description: Username with write access to Nexus
+    required: true
+  password:
+    description: Password to Nexus
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.url }}
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
