@@ -25,7 +25,7 @@ The full version string of the gem uploaded
 ## Usage
 ```yml
 - name: Build and publish gem
-  uses: Drowze/action-publish-gem-to-nexus@master
+  uses: Drowze/action-publish-gem-to-nexus@v1.0.0
   with:
     url: http://nexus.my-domain.com/repository/my-gem
     username: johndoe
