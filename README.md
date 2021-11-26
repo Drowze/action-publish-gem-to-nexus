@@ -1,6 +1,6 @@
 # Publish gem to nexus
 
-Simple gitHub actions to build and publish gems to Sonatype's Nexus Repository.
+Simple GitHub action to build and publish gems to Sonatype's Nexus Repository.
 
 ## Inputs:
 
