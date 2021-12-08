@@ -16,6 +16,7 @@ inputs:
     required: true
 runs:
   using: docker
+  post-if: always()
   image: Dockerfile
   args:
     - ${{ inputs.url }}

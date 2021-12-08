@@ -13,7 +13,9 @@ echo "Building gem"
 gem build *.gemspec
 
 GEM_VERSION=$(ruby -e "require 'rubygems'; gemspec = Dir.entries('.').find { |file| file =~ /.*\.gemspec/ }; spec = Gem::Specification::load(gemspec); puts spec.version")
-echo "::set-output name=full-version::${GEM_VERSION}"
 
 echo "Pushing gem"
 gem nexus --url ${URL} --credential ${USERNAME}:${PASSWORD} *.gem
+
+# full version is only present if nexus doesn't throw an error
+echo "::set-output name=full-version::${GEM_VERSION}"
