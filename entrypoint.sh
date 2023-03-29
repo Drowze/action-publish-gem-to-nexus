@@ -9,13 +9,16 @@ PASSWORD=$3
 [ -z "${USERNAME}" ] && { echo "Missing input.username!"; exit 2; }
 [ -z "${PASSWORD}" ] && { echo "Missing input.password!"; exit 2; }
 
+read -r GEM_NAME GEM_VERSION < <(ruby -e "spec = Dir.entries('.').find { |file| file =~ /.*\.gemspec/ }.then(&Gem::Specification.method(:load)); puts [spec.name, spec.version].join(' ')")
+
+echo "name=${GEM_NAME}" >> ${GITHUB_OUTPUT}
+
 echo "Building gem"
 gem build *.gemspec
-
-GEM_VERSION=$(ruby -e "require 'rubygems'; gemspec = Dir.entries('.').find { |file| file =~ /.*\.gemspec/ }; spec = Gem::Specification::load(gemspec); puts spec.version")
 
 echo "Pushing gem"
 gem nexus --url ${URL} --credential ${USERNAME}:${PASSWORD} *.gem
 
 # full version is only present if nexus doesn't throw an error
-echo "::set-output name=full-version::${GEM_VERSION}"
+echo "full-version=${GEM_VERSION}" >> ${GITHUB_OUTPUT}
+echo "::notice ::Publish gem ${GEM_NAME}, version ${GEM_VERSION}"

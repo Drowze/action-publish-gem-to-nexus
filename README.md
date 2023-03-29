@@ -20,7 +20,7 @@ Simple GitHub action to build and publish gems to Sonatype's Nexus Repository.
 
 ## `full-version`
 
-The full version string of the gem uploaded
+The full version string of the gem uploaded. Only present if gem upload didn't throw an error.
 
 ## Usage
 ```yml

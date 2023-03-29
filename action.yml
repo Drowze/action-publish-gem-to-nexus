@@ -14,6 +14,11 @@ inputs:
   password:
     description: Password to Nexus
     required: true
+outputs:
+  name:
+    description: Gem name (as described on the gemspec)
+  full-version:
+    description: Gem version that was published (as described on the gemspec). Only present if upload was successful.
 runs:
   using: docker
   post-if: always()
