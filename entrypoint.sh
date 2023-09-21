@@ -13,12 +13,14 @@ read -r GEM_NAME GEM_VERSION < <(ruby -e "spec = Dir.entries('.').find { |file| 
 
 echo "name=${GEM_NAME}" >> ${GITHUB_OUTPUT}
 
-echo "Building gem"
+echo "::group::Building the gem"
 gem build *.gemspec
+echo "::endgroup::"
 
-echo "Pushing gem"
+echo "::group::Pushing gem to Nexus"
 gem nexus --url ${URL} --credential ${USERNAME}:${PASSWORD} *.gem
+echo "::endgroup::"
 
 # full version is only present if nexus doesn't throw an error
 echo "full-version=${GEM_VERSION}" >> ${GITHUB_OUTPUT}
-echo "::notice ::Publish gem ${GEM_NAME}, version ${GEM_VERSION}"
+echo "::notice ::Published gem ${GEM_NAME}, version ${GEM_VERSION} to Nexus"
